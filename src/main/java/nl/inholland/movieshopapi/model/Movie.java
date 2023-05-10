@@ -1,9 +1,13 @@
 package nl.inholland.movieshopapi.model;
 
-import org.springframework.stereotype.Component;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
-//@Component
+@Entity
 public class Movie {
+    @Id
+    @GeneratedValue
     private long id;
     private String title;
     private double price;
@@ -12,6 +16,10 @@ public class Movie {
         this.id = id;
         this.title = title;
         this.price = price;
+    }
+
+    public Movie() {
+
     }
 
     public long getId() {
