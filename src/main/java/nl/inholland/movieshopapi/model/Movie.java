@@ -13,6 +13,9 @@ public class Movie {
         this.title = title;
         this.price = price;
     }
+    public Movie(){
+
+    }
 
     public long getId() {
         return id;
@@ -35,6 +38,10 @@ public class Movie {
     }
 
     public void setPrice(double price) {
+        if (price < 0) {
+            throw new IllegalArgumentException("Price cannot be negative");
+        }
+
         this.price = price;
     }
 }
