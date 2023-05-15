@@ -1,12 +1,10 @@
 Feature: Everything to do with Movies
 
-  Scenario:
+  Scenario: getting all movies
     Given The endpoint for "movies" is available for method "GET"
     When I retrieve all movies
     Then I get a list of movies
     And I get http status code 200
-
-
 
   Scenario: Create movie
     Given The endpoint for "movies" is available for method "POST"

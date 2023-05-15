@@ -1,14 +1,19 @@
 package nl.inholland.movieshopapi.cucumber;
 
-import com.jayway.jsonpath.JsonPath;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.data.web.JsonPath;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
 import java.net.http.HttpHeaders;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,27 +26,27 @@ public class MovieStepDefinitions extends BaseStepDefinitions {
     HttpHeaders httpHeaders;
 
     @Given("The endpoint for {string} is available for method {string}")
-    public void theEndpointForIsAvailableForMethod(String endpoint, String arg1) {
+    public void theEndpointForIsAvailableForMethod(String endpoint, String method) {
         response = testRestTemplate.exchange(
                 "/" + endpoint,
                 HttpMethod.OPTIONS,
                 new HttpEntity<>(
                         null,
-                        new httpHeaders),
+                new org.springframework.http.HttpHeaders()),
                 String.class);
 
-        List<String> options = response.getHeaders().get("Allow").get(0).split(",")).collect(Collectors.toList());
-        Assertions.assertTrue(options.contains(method.toUpperCase));
+        List<String> options = Arrays.stream(response.getHeaders().get("Allow").get(0).split(",")).collect(Collectors.toList());
+        Assertions.assertTrue(options.contains(method.toUpperCase()));
     }
 
     @When("I retrieve all movies")
     public void iRetrieveAllMovies(){
         response = testRestTemplate.exchange(
                 "/guitars",
-                HttpMethod.Get,
+                HttpMethod.GET,
                 new HttpEntity<>(
                         null,
-                        httpHeaders),
+                new org.springframework.http.HttpHeaders()),
                 String.class);
 
     }
@@ -70,7 +75,7 @@ public class MovieStepDefinitions extends BaseStepDefinitions {
                             {
                                 "name": John Wick
                             }
-                        """, httpHeaders),
+                        """, new org.springframework.http.HttpHeaders()),
                 String.class);
     }
 
