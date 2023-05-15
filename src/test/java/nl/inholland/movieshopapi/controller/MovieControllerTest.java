@@ -21,6 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(MovieController.class)
@@ -48,8 +49,8 @@ class MovieControllerTest {
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/movies"))
                 .andDo(print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(jsonPath(("$[0].name").value("The Matrix")));
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("The Matrix"));
     }
 
     @Test
@@ -60,9 +61,7 @@ class MovieControllerTest {
                 MockMvcRequestBuilders.post("/movies")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{}"))
-                .andExpect(status.isCreated())
-                .andExpect(jsonPath("$.id").value(1));
-
-
+                .andExpect(status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
     }
 }

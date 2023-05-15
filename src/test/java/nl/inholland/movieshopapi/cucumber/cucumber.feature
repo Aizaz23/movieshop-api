@@ -1,4 +1,4 @@
-Feature: Everthing to do with Movies
+Feature: Everything to do with Movies
 
   Scenario:
     Given The endpoint for "movies" is available for method "GET"
