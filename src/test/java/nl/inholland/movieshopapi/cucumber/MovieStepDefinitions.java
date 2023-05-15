@@ -10,9 +10,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.data.web.JsonPath;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-
-import java.net.http.HttpHeaders;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
