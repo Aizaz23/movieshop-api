@@ -36,33 +36,33 @@ class MovieControllerTest {
     }
 
     @Autowired
-//    private MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @MockBean
     private MovieService movieService;
 
-//    @Test
-//    void getAllMoviesShouldReturnAListOfOne() throws Exception {
-//        when(movieService.getAllMovies())
-//                .thenReturn(List.of(movie));
-//
-//        this.mockMvc.perform(MockMvcRequestBuilders.get("/movies"))
-//                .andDo(print())
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(jsonPath(("$[0].name").value("The Matrix")));
-//    }
-//
-//    @Test
-//    void createMovieShouldReturnObjectAndStatus201() throws Exception {
-//        when(movieService.addMovie(any(Movie.class)))
-//                .thenReturn(movie);
-//        this.mockMvc.perform(
-//                MockMvcRequestBuilders.post("/movies")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("{}"))
-//                .andExpect(status.isCreated())
-//                .andExpect(jsonPath("$.id").value(1));
-//
-//
-//    }
+    @Test
+    void getAllMoviesShouldReturnAListOfOne() throws Exception {
+        when(movieService.getAllMovies())
+                .thenReturn(List.of(movie));
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/movies"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(jsonPath(("$[0].name").value("The Matrix")));
+    }
+
+    @Test
+    void createMovieShouldReturnObjectAndStatus201() throws Exception {
+        when(movieService.addMovie(any(Movie.class)))
+                .thenReturn(movie);
+        this.mockMvc.perform(
+                MockMvcRequestBuilders.post("/movies")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{}"))
+                .andExpect(status.isCreated())
+                .andExpect(jsonPath("$.id").value(1));
+
+
+    }
 }
