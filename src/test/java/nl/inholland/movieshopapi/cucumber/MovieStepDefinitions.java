@@ -1,5 +1,6 @@
 package nl.inholland.movieshopapi.cucumber;
 
+import com.jayway.jsonpath.JsonPath;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -7,13 +8,13 @@ import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.data.web.JsonPath;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class MovieStepDefinitions extends BaseStepDefinitions {
@@ -34,7 +35,7 @@ public class MovieStepDefinitions extends BaseStepDefinitions {
                 new org.springframework.http.HttpHeaders()),
                 String.class);
 
-        List<String> options = Arrays.stream(response.getHeaders().get("Allow").get(0).split(",")).collect(Collectors.toList());
+        List<String> options = Arrays.stream(Objects.requireNonNull(response.getHeaders().get("Allow")).get(0).split(",")).collect(Collectors.toList());
         Assertions.assertTrue(options.contains(method.toUpperCase()));
     }
 
@@ -50,6 +51,8 @@ public class MovieStepDefinitions extends BaseStepDefinitions {
 
     }
 
+    // Fix ERROR
+    // Unknown function name 'size' in path $['size()']
     @Then("I get a list of {int} guitars")
     public void iGetAListOfGuitars(int expected) {
         int actual = JsonPath.read(response.getBody(), "$.size()");
